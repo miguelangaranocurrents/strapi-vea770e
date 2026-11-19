@@ -625,8 +625,15 @@ const RelationsInput = ({
        *
        */
       onChange(relation);
+
+      /**
+       * The search term that produced this selection no longer describes the list we should show.
+       * Clear it so the available relations are re-fetched without the query that led to the pick,
+       * otherwise the list keeps showing the (now empty) results of that search.
+       */
+      setSearchParams((s) => ({ ...s, _q: '', page: 1 }));
     },
-    [data, formatMessage, onChange, toggleNotification]
+    [data, formatMessage, onChange, toggleNotification, setSearchParams]
   );
 
   const relation = React.useMemo(
